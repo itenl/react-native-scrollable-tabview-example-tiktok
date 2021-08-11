@@ -8,8 +8,12 @@ import {
   ImageBackground,
   FlatList,
   Animated,
+  Dimensions,
+  SafeAreaView,
+  Linking,
 } from "react-native";
 import ScrollableTabView from "@itenl/react-native-scrollable-tabview";
+const deviceWidth = Dimensions.get("window").width;
 
 const IMG_BG = require("./images/bg.jpeg");
 const IMG_DEFAULT = require("./images/default.jpeg");
@@ -69,6 +73,7 @@ class Works extends React.Component {
         }}
       >
         <FlatList
+          scrollEnabled={false}
           keyExtractor={(item, index) => `${index}`}
           data={this.state.list}
           numColumns={3}
@@ -571,8 +576,13 @@ class Header extends React.Component {
                 justifyContent: "center",
                 marginLeft: 10,
               }}
+              onPress={() => {
+                Linking.openURL(
+                  "https://github.com/itenl/react-native-scrollable-tabview"
+                );
+              }}
             >
-              <Text style={{ color: "#ffffff" }}>添加朋友</Text>
+              <Text style={{ color: "#ffffff" }}>给我一个Star吧</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -625,60 +635,40 @@ export default class APP extends React.Component {
     }
   };
 
-  containerHeader = () => {
-    return (
-      <Animated.View
-        style={{
-          height: this.state.scrollY.interpolate({
-            inputRange: [0, 240],
-            outputRange: [0, 80],
-            extrapolate: "clamp",
-          }),
-          opacity: this.state.scrollY.interpolate({
-            inputRange: [180, 400],
-            outputRange: [0, 1],
-            extrapolate: "clamp",
-          }),
-          justifyContent: "center",
-          alignItems: "center",
-          width: "100%",
-          //   transform: [
-          //     {
-          //       translateY: this.state.scrollY.interpolate({
-          //         inputRange: [0, 100],
-          //         outputRange: [0, 50],
-          //         extrapolate: "clamp",
-          //       }),
-          //     },
-          //   ],
-        }}
-      >
-        <Text style={{ fontSize: 16, color: "#ffffff" }}>昵称加载中...</Text>
-        <TouchableOpacity
-          style={{
-            opacity: 0.5,
-            backgroundColor: "#000000",
-            height: 30,
-            width: 30,
-            borderRadius: 15,
-            marginRight: 15,
-            justifyContent: "center",
-            alignItems: "center",
-            position: "absolute",
-            right: 0,
-          }}
-        >
-          <Text style={{ color: "#ffffff" }}>Go</Text>
-        </TouchableOpacity>
-      </Animated.View>
-    );
-  };
-
   render() {
     return (
-      <View style={styles.container}>
-        {this.containerHeader()}
+      <SafeAreaView style={styles.container}>
+        {/* {this.containerHeader()} */}
         <ScrollableTabView
+          title={
+            <View
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ fontSize: 16, color: "#ffffff" }}>
+                昵称加载中...
+              </Text>
+              <TouchableOpacity
+                style={{
+                  opacity: 0.5,
+                  backgroundColor: "#000000",
+                  height: 30,
+                  width: 30,
+                  borderRadius: 15,
+                  marginRight: 15,
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",
+                  right: 0,
+                }}
+              >
+                <Text style={{ color: "#ffffff" }}>Go</Text>
+              </TouchableOpacity>
+            </View>
+          }
           ref={(it) => (this.scrollableTabView = it)}
           onTabviewChanged={(index, tabLabel) => {
             console.log(`${index},${tabLabel}`);
@@ -698,10 +688,11 @@ export default class APP extends React.Component {
             backgroundColor: "#151723",
             borderBottomColor: "#22242f",
             borderBottomWidth: 0.5,
+            width: deviceWidth / 4,
           }}
           tabUnderlineStyle={{
             backgroundColor: "#fbd45d",
-            top: 8,
+            top: 37,
             height: 3,
           }}
           textStyle={{
@@ -724,20 +715,20 @@ export default class APP extends React.Component {
           toTabsOnTab={true}
           oneTabHidden={true}
           enableCachePage={true}
-          sectionListProps={{
-            onScroll: Animated.event(
-              [
-                {
-                  nativeEvent: { contentOffset: { y: this.state.scrollY } },
-                },
-              ],
-              {
-                // useNativeDriver: true,
-              }
-            ),
-          }}
+          // onScroll={Animated.event(
+          //   [
+          //     {
+          //       nativeEvent: { contentOffset: { y: this.state.scrollY } },
+          //     },
+          //   ],
+          //   {
+          //     listener: ({ nativeEvent }) =>
+          //       console.log(nativeEvent.contentOffset.y),
+          //   }
+          // )}
+          tabsEnableAnimated={true}
         ></ScrollableTabView>
-      </View>
+      </SafeAreaView>
     );
   }
 }

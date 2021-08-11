@@ -9,7 +9,7 @@
     "macos-connect": "lsof -i:5037 && kill -9 pid && adb connect localhost:5555"
   },
   "dependencies": {
-    "@itenl/react-native-scrollable-tabview": "^1.0.17",
+    "@itenl/react-native-scrollable-tabview": "^1.0.19",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",
@@ -18,8 +18,7 @@
     "react-native-web": "~0.13.12"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
-    "@haul-bundler/cli": "^0.23.0"
+    "@babel/core": "^7.9.0"
   },
   "private": true
 }
