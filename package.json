@@ -6,10 +6,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "macos-connect": "lsof -i:5037 && kill -9 pid && adb connect localhost:5555"
+    "macos-connect": "lsof -i:5037 && kill -9 pid && adb connect localhost:5555 && adb reverse tcp:8081 tcp:8081"
   },
   "dependencies": {
-    "@itenl/react-native-scrollable-tabview": "^1.1.0",
+    "@itenl/react-native-scrollable-tabview": "git+https://github.com/itenl/react-native-scrollable-tabview.git#b095a4fd10be9d3484a622c81cc2c2a644807afa",
     "expo": "~42.0.1",
     "expo-status-bar": "~1.0.4",
     "react": "16.13.1",

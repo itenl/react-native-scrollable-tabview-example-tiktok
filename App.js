@@ -32,14 +32,16 @@ class Works extends React.Component {
         };
       }),
     };
+    this.handleViewableItemsChanged = this.getVisibleRows.bind(this);
   }
-  onRefresh = (toggled) => {
-    this.toggled = toggled;
-    this.toggled && this.toggled();
-    console.log("Works onRefresh");
-    // to do
-    this.toggled && this.toggled();
-  };
+
+  // onRefresh = (toggled) => {
+  //   this.toggled = toggled;
+  //   this.toggled && this.toggled();
+  //   console.log("Works onRefresh");
+  //   // to do
+  //   this.toggled && this.toggled();
+  // };
 
   onEndReached = () => {
     if (this.state.list.length >= 50 || this.state.notMore) {
@@ -64,6 +66,11 @@ class Works extends React.Component {
     });
   };
 
+  getVisibleRows({ viewableItems, changed }) {
+    console.log(JSON.stringify(viewableItems[viewableItems.length - 1].index));
+    // this.setState({ currentPage: visibleRowNumbers });
+  }
+
   render() {
     return (
       <View
@@ -77,6 +84,8 @@ class Works extends React.Component {
           keyExtractor={(item, index) => `${index}`}
           data={this.state.list}
           numColumns={3}
+          viewabilityConfig={{ viewAreaCoveragePercentThreshold: 50 }}
+          onViewableItemsChanged={this.getVisibleRows}
           renderItem={({ item, index }) => {
             return (
               <TouchableOpacity
@@ -129,10 +138,10 @@ class Private extends React.Component {
   }
   onRefresh = (toggled) => {
     this.toggled = toggled;
-    this.toggled && this.toggled();
+    this.toggled && this.toggled(true);
     console.log("Private onRefresh");
     // to do
-    this.toggled && this.toggled();
+    this.toggled && this.toggled(false);
   };
 
   onEndReached = () => {
@@ -600,6 +609,7 @@ export default class APP extends React.Component {
       firstIndex: 0,
       scrollY: new Animated.Value(0),
     };
+    console.log(`deviceWidth:${deviceWidth}`);
   }
 
   initStacks() {
@@ -620,6 +630,42 @@ export default class APP extends React.Component {
         screen: Collect,
         tabLabel: "收藏",
       },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
+      {
+        screen: Like,
+        tabLabel: "喜欢1",
+      },
     ];
   }
 
@@ -638,7 +684,6 @@ export default class APP extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        {/* {this.containerHeader()} */}
         <ScrollableTabView
           title={
             <View
@@ -683,6 +728,7 @@ export default class APP extends React.Component {
           tabActiveOpacity={1}
           tabsStyle={{
             height: 40,
+            backgroundColor: "#151723",
           }}
           tabStyle={{
             backgroundColor: "#151723",
@@ -702,6 +748,7 @@ export default class APP extends React.Component {
           textActiveStyle={{
             color: "#ffffff",
           }}
+          // fixedHeader={true}
           header={<Header />}
           firstIndex={this.state.firstIndex}
           //   onBeforeRefresh={async (next, toggled) => {
@@ -712,20 +759,25 @@ export default class APP extends React.Component {
           //       next();
           //     }, 3000);
           //   }}
+          useScroll={true}
           toTabsOnTab={true}
           oneTabHidden={true}
           enableCachePage={true}
-          // onScroll={Animated.event(
-          //   [
-          //     {
-          //       nativeEvent: { contentOffset: { y: this.state.scrollY } },
-          //     },
-          //   ],
-          //   {
-          //     listener: ({ nativeEvent }) =>
-          //       console.log(nativeEvent.contentOffset.y),
-          //   }
-          // )}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: { contentOffset: { y: this.state.scrollY } },
+              },
+            ]
+            // {
+            //   listener: ({ nativeEvent }) =>
+            //     console.log(nativeEvent.contentOffset.y),
+            // }
+          )}
+          onScroll2Horizontal={({ nativeEvent }) => {
+            console.log(nativeEvent.contentOffset.x);
+          }}
+          tabsEnableAnimatedUnderlineWidth={30}
           tabsEnableAnimated={true}
         ></ScrollableTabView>
       </SafeAreaView>
