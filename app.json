@@ -2,6 +2,7 @@
   "expo": {
     "name": "react-native-scrollable-tabview-example-tiktok",
     "slug": "react-native-scrollable-tabview-example-tiktok",
+    "owner": "itenl",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
