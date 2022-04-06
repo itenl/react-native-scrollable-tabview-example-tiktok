@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -633,6 +633,12 @@ export default class APP extends React.Component {
           useRefresh,
           useEndReached,
         }) => {
+          const [datetime, setDatetime] = useState(Date.now());
+          useEffect(() => {
+            setInterval(() => {
+              setDatetime(Date.now());
+            }, 1000);
+          }, []);
           useInit();
           useRefresh((toggled) => {
             toggled(true);
@@ -654,7 +660,9 @@ export default class APP extends React.Component {
                 alignItems: "center",
               }}
             >
-              <Text style={{ color: "#000" }}>Test function component</Text>
+              <Text style={{ color: "#ffffff" }}>
+                Test function component {datetime}
+              </Text>
             </View>
           );
         },
