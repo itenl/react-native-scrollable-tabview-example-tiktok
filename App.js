@@ -623,6 +623,44 @@ export default class APP extends React.Component {
         tabLabel: "私密",
       },
       {
+        screen: ({
+          layoutHeight,
+          refresh,
+          rootTime,
+          scrollTo,
+          toTabView,
+          useInit,
+          useRefresh,
+          useEndReached,
+        }) => {
+          useInit();
+          useRefresh((toggled) => {
+            toggled(true);
+            alert("useRefresh start");
+            setTimeout(() => {
+              toggled(false);
+              alert("useRefresh stop");
+            }, 3000);
+          });
+          useEndReached(() => {
+            alert("useEndReached");
+          });
+          return (
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: "#151723",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Text style={{ color: "#000" }}>Test function component</Text>
+            </View>
+          );
+        },
+        tabLabel: "测试函数组件",
+      },
+      {
         screen: Like,
         tabLabel: "喜欢",
       },
