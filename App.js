@@ -139,9 +139,11 @@ class Private extends React.Component {
   onRefresh = (toggled) => {
     this.toggled = toggled;
     this.toggled && this.toggled(true);
-    console.log("Private onRefresh");
-    // to do
-    this.toggled && this.toggled(false);
+    setTimeout(() => {
+      console.log("Private onRefresh");
+      // to do
+      this.toggled && this.toggled(false);
+    }, 3000);
   };
 
   onEndReached = () => {
@@ -629,28 +631,28 @@ export default class APP extends React.Component {
           rootTime,
           scrollTo,
           toTabView,
-          useInit,
-          useRefresh,
-          useEndReached,
+          initScreen,
+          onRefresh,
+          onEndReached,
         }) => {
+          initScreen();
           const [datetime, setDatetime] = useState(Date.now());
           useEffect(() => {
             setInterval(() => {
               setDatetime(Date.now());
             }, 1000);
           }, []);
-          useInit();
-          useRefresh((toggled) => {
+          onRefresh((toggled) => {
             toggled(true);
-            alert("useRefresh start");
+            // alert("onRefresh start");
             setTimeout(() => {
               toggled(false);
-              alert("useRefresh stop");
+              // alert("onRefresh stop");
             }, 3000);
           });
-          useEndReached(() => {
-            alert("useEndReached");
-          });
+          // onEndReached(() => {
+          //   alert("onEndReached");
+          // });
           return (
             <View
               style={{
